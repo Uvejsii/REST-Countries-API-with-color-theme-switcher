@@ -13,7 +13,7 @@ const newCountry = ref({})
 const country = ref({})
 
 watch(() => route.params.id, () => {
-  newCountry.value = countriesStore.countries.find(c => c.cca3 === route.params.id)
+  newCountry.value = countriesStore.filteredCountries.find(c => c.cca3 === route.params.id)
   country.value = newCountry.value
 })
 

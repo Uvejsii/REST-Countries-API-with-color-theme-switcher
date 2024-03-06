@@ -10,7 +10,7 @@ import CountryCard from "@/components/CountryCard.vue";
       <div class="search col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
         <SearchBar/>
       </div>
-      <div class="filter col-xl-3 col-lg-3 col-md-5 col-sm-5 col-7">
+      <div class="filter col-xl-3 col-lg-3 col-md-5 col-sm-5 col-8">
         <Filter/>
       </div>
     </div>
@@ -24,6 +24,11 @@ import CountryCard from "@/components/CountryCard.vue";
 }
 
 @media (max-width: 580px) {
+  main {
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+  }
+
   .search-and-filter {
     height: 180px !important;
   }

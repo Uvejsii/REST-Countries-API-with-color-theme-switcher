@@ -40,4 +40,10 @@ input:focus {
 .white-text::placeholder {
   color: rgba(201, 201, 201, 0.94) !important;
 }
+
+@media (max-width: 580px) {
+  input::placeholder {
+    font-size: 16px;
+  }
+}
 </style>

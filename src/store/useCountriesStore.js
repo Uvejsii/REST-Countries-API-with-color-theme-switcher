@@ -47,6 +47,7 @@ export const useCountriesStore = defineStore("country", () => {
         countries,
         filteredCountries,
         search,
+        fetchData,
         formatPopulation,
         refreshCountries,
         filterCountries,

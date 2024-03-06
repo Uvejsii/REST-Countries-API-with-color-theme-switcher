@@ -26,6 +26,8 @@ onMounted(async () => {
   const response = await fetch('https://restcountries.com/v3.1/all')
   const data = await response.json()
   country.value = data.find(c => c.cca3 === route.params.id)
+
+  countriesStore.fetchData()
 })
 </script>
 

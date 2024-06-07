@@ -11,7 +11,7 @@ const themeStore = useThemeStore()
   <div
       class="h-auto app-container"
       :class="{'very-dark-mode': themeStore.darkTheme}">
-    <div class="d-flex justify-content-center">
+    <div class="">
       <Toast/>
     </div>
     <Navbar/>

@@ -1,30 +1,33 @@
 <script setup>
-import {onMounted, ref} from "vue";
-
-const isToastVisible = ref(true)
+import {onMounted} from "vue";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Modal} from 'bootstrap';
 
 onMounted(() => {
-  setTimeout(() => {
-    isToastVisible.value = false
-  }, 6000)
-})
+  const modal = new Modal(document.getElementById('exampleModal'));
+  modal.show();
+});
 </script>
 
 <template>
-    <div v-if="isToastVisible" class="toast-container bg-primary-subtle p-3 rounded-2 shadow-sm mx-5">
-      <div class="toast-header">
-        <strong class="me-auto fs-5">Info <i class="bi bi-info-circle"></i></strong>
-      </div>
-      <div class="toast-body">
-        <p class="m-0 fw-bold">
-          You might need to refresh the page to see all countries data
-        </p>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Info <i class="bi bi-info-circle"></i></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fw-bold">
+          If you do not see countries data within few seconds please refresh the page
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
-.toast-container {
-  margin-top: 400px;
-}
 </style>

@@ -31,6 +31,7 @@ const toggleFilterOptions = () => {
         v-if="showFilterOptions"
         :class="{'dark-mode border-0 white-text': themeStore.darkTheme}"
         class="filter-options z-1 bg-light-subtle p-4 d-flex flex-column gap-2 shadow rounded border fw-semibold position-absolute top-100 w-100 start-0 mt-2">
+      <p class="m-0" @click="countriesStore.fetchData()">Filter All</p>
       <p class="m-0" @click="countriesStore.filterCountriesByRegion('Africa')">Africa</p>
       <p class="m-0" @click="countriesStore.filterCountriesByRegion('America')">America</p>
       <p class="m-0" @click="countriesStore.filterCountriesByRegion('Asia')">Asia</p>

@@ -6,8 +6,8 @@ import {onMounted} from "vue";
 const countriesStore = useCountriesStore()
 const themeStore = useThemeStore()
 
-onMounted(() => {
-  countriesStore.fetchData()
+onMounted(async () => {
+  await countriesStore.fetchData()
 })
 </script>
 

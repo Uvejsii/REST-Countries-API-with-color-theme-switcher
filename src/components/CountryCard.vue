@@ -1,9 +1,14 @@
 <script setup>
 import {useCountriesStore} from "@/store/useCountriesStore.js";
 import {useThemeStore} from "@/store/useThemeStore.js";
+import {onMounted} from "vue";
 
 const countriesStore = useCountriesStore()
 const themeStore = useThemeStore()
+
+onMounted(() => {
+  countriesStore.fetchData()
+})
 </script>
 
 <template>

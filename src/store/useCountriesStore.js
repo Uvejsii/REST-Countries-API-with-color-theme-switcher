@@ -14,14 +14,12 @@ export const useCountriesStore = defineStore("country", () => {
                 throw new Error('Network was not ok')
             }
             const data = await response.json();
-            countries.value = await data
+            countries.value = data
             filteredCountries.value = countries.value
         } catch (error) {
             console.error('Error fetching data:', error)
         }
     }
-
-    fetchData()
 
     const formatPopulation = (population) => {
         return new Intl.NumberFormat('en-US', {maximumSignificantDigits: 3}).format(

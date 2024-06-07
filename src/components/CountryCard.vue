@@ -47,7 +47,7 @@ const themeStore = useThemeStore()
 </template>
 
 <style scoped>
-@import "styles.css";
+@import "/styles.css";
 
 .card {
   cursor: pointer;

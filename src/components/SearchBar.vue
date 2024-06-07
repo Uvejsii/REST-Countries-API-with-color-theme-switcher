@@ -25,7 +25,7 @@ const themeStore = useThemeStore()
 </template>
 
 <style scoped>
-@import "styles.css";
+@import "/styles.css";
 
 input {
   box-shadow: 0 0 12px -4px rgba(125, 125, 125, 1);

@@ -41,7 +41,7 @@ const toggleFilterOptions = () => {
 </template>
 
 <style scoped>
-@import "styles.css";
+@import "/styles.css";
 
 .filter-header {
   cursor: pointer;

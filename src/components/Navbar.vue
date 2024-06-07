@@ -44,7 +44,7 @@ const darkButton = ref(true)
 </template>
 
 <style scoped>
-@import "styles.css";
+@import "/styles.css";
 
 .left-header h3 {
   cursor: pointer;

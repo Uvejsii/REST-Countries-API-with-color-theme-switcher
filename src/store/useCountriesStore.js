@@ -14,7 +14,7 @@ export const useCountriesStore = defineStore("country", () => {
                 throw new Error('Network was not ok')
             }
             const data = await response.json();
-            countries.value = data
+            countries.value = await data
             filteredCountries.value = countries.value
         } catch (error) {
             console.error('Error fetching data:', error)

@@ -1,25 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import data from "/src/store/data.json"
 
 export const useCountriesStore = defineStore("country", () => {
-    const apiUrl = 'https://restcountries.com/v3.1/all';
-    const countries = ref([]);
+    const countriesDataFile = data;
+    const countries = ref(countriesDataFile);
     const filteredCountries = ref([]);
     const search = ref('');
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            const data = await response.json();
-            countries.value = data;
-            filteredCountries.value = countries.value;
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+    filteredCountries.value = countries.value
 
     const formatPopulation = (population) => {
         return new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(population);
@@ -31,7 +20,7 @@ export const useCountriesStore = defineStore("country", () => {
     };
 
     const filterCountries = () => {
-        filteredCountries.value = countries.value.filter(c => c.name.common.toLowerCase().includes(search.value.toLowerCase()));
+        filteredCountries.value = countries.value.filter(c => c.name.toLowerCase().includes(search.value.toLowerCase()));
     };
 
     const filterCountriesByRegion = (regionToFilter) => {
@@ -39,11 +28,10 @@ export const useCountriesStore = defineStore("country", () => {
     };
 
     return {
-        apiUrl,
+        countriesDataFile,
         countries,
         filteredCountries,
         search,
-        fetchData,
         formatPopulation,
         refreshCountries,
         filterCountries,

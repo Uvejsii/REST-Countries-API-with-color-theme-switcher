@@ -1,7 +1,7 @@
 <script setup>
 import {useCountriesStore} from "@/store/useCountriesStore.js";
 import {useThemeStore} from "@/store/useThemeStore.js";
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
 const countriesStore = useCountriesStore()
@@ -13,21 +13,24 @@ const newCountry = ref({})
 const country = ref({})
 
 watch(() => route.params.id, () => {
-  newCountry.value = countriesStore.filteredCountries.find(c => c.cca3 === route.params.id)
+  newCountry.value = countriesStore.filteredCountries.find(c => c.alpha3Code === route.params.id)
   country.value = newCountry.value
 })
 
 const getCountryNameByBorder = (border) => {
-  const targetCountry = countriesStore.filteredCountries.find(c => c.cca3 === border);
-  return targetCountry ? targetCountry.name.common : '';
+  const targetCountry = countriesStore.filteredCountries.find(c => c.alpha3Code === border);
+  return targetCountry ? targetCountry.name : '';
 }
 
-onMounted(async () => {
-  const response = await fetch('https://restcountries.com/v3.1/all')
-  const data = await response.json()
-  country.value = data.find(c => c.cca3 === route.params.id)
+const formattedLanguages = computed(() => {
+  return country.value.languages.map(lang => lang.name).join(', ')
+})
 
-  countriesStore.fetchData()
+onMounted(() => {
+  const data = countriesStore.countriesDataFile
+  country.value = data.find(c => c.alpha3Code === route.params.id)
+
+  countriesStore.refreshCountries()
 })
 </script>
 
@@ -58,16 +61,16 @@ onMounted(async () => {
       </div>
       <div class="col-xl-6 col-lg-5">
         <h1 class="mb-4 fw-bold">
-          <span v-if="!country?.name.common"> -</span>
-          <span v-else> {{ country?.name.common }}</span>
+          <span v-if="!country?.name"> -</span>
+          <span v-else> {{ country?.name }}</span>
         </h1>
         <div class="row">
           <div class="country-info-container d-flex justify-content-between gap-5">
             <div class="left-details d-flex col-xl-5 col-lg-6 col-md-12 flex-column gap-2">
               <p class="m-0">
                 <b>Native Name: </b>
-                <span v-if="!country?.name.nativeName"> -</span>
-                <span v-else>{{ Object.values(country?.name.nativeName)[0].official }}</span>
+                <span v-if="!country?.nativeName"> -</span>
+                <span v-else>{{ country?.nativeName }}</span>
               </p>
               <p class="m-0"><b>Population: </b>
                 <span v-if="!country?.population"> -</span>
@@ -85,18 +88,17 @@ onMounted(async () => {
                 <b>Capital: </b>
                 <span v-if="!country?.capital"> -</span>
                 <span v-else>
-                    {{
-                    country?.capital && country?.capital.length > 1 ? Object.values(country?.capital).join(', ').toString() : String(country?.capital)
-                  }}
+                    {{ country?.capital }}
                   </span>
               </p>
             </div>
             <div class="right-details col-xl-5 col-lg-5 col-md-12 d-flex flex-column gap-2">
               <p
-                  v-if="country?.tld"
+                  v-if="country?.topLevelDomain[0] !== '' "
+                  v-for="tld in country.topLevelDomain"
                   class="m-0">
                 <b>Top Level Domain: </b>
-                {{ Object.values(country?.tld).join(', ').toString() }}
+                {{ tld }}
               </p>
               <p
                   v-else
@@ -117,7 +119,7 @@ onMounted(async () => {
                 <b>Languages: </b>
                 <span v-if="!country?.languages"> -</span>
                 <span v-else>
-                      {{ Object.values(country?.languages).join(', ').toString() }}
+                 {{ formattedLanguages }}
                 </span>
               </p>
             </div>
@@ -133,7 +135,7 @@ onMounted(async () => {
             </p>
             <div
                 v-for="border in country?.borders"
-                :key="border.cca3"
+                :key="border.alpha3Code"
                 class="d-flex">
               <RouterLink :to="`/country/${border}`">
                 <button

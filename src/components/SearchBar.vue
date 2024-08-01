@@ -17,7 +17,7 @@ const themeStore = useThemeStore()
     <input
         type="text"
         v-model.trim="countriesStore.search"
-        @keyup.enter="countriesStore.filterCountries()"
+        @keyup="countriesStore.filterCountries()"
         placeholder="Search for a country..."
         :class="{'dark-mode shadow white-text': themeStore.darkTheme}"
         class="position-absolute h-100 border-0 w-25 rounded-2 w-100 fw-semibold">
